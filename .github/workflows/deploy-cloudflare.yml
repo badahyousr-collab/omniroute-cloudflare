@@ -17,8 +17,14 @@ jobs:
   deploy:
     name: Build and deploy Cloudflare Container
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache
+          sudo docker system prune -af --volumes || true
+          df -h
+
       - name: Checkout
         uses: actions/checkout@v4
 
