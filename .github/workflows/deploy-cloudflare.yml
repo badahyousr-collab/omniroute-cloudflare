@@ -19,14 +19,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
-      - name: Free runner disk space
-        run: |
-          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache
-          sudo docker system prune -af --volumes || true
-          df -h
-
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Free disk safely before Docker build
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/heroku
+          sudo apt-get clean
+          sudo docker system prune -af --volumes || true
+          rm -rf ~/.npm/_cacache ~/.cache || true
+          df -h
 
       - name: Build & Deploy
         uses: cloudflare/wrangler-action@v3
