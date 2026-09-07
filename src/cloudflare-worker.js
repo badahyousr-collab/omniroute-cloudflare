@@ -11,6 +11,15 @@ export class OmniRouteContainer extends DurableObject {
   }
 
   async fetch(request) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/health" || url.pathname === "/health/") {
+      return new Response(JSON.stringify({ status: "ok", service: "omniroute-cloudflare" }), {
+        status: 200,
+        headers: { "content-type": "application/json; charset=utf-8" },
+      });
+    }
+
     const container = this.ctx.container;
 
     if (!container.running) {
