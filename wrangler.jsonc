@@ -4,6 +4,7 @@
   "main": "src/cloudflare-worker.js",
   "compatibility_date": "2026-09-05",
   "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
   "containers": [
     {
       "class_name": "OmniRouteContainer",
