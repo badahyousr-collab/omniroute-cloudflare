@@ -23,7 +23,12 @@ export class OmniRouteContainer extends DurableObject {
     const container = this.ctx.container;
 
     if (!container.running) {
-      container.start({ enableInternet: true });
+      container.start({
+        enableInternet: true,
+        env: {
+          OPENAI_API_KEY: env.OPENAI_API_KEY,
+        },
+      });
     }
 
     let lastError;
