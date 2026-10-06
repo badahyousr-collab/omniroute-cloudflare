@@ -16,11 +16,18 @@ permissions:
 jobs:
   deploy:
     name: Build and deploy Cloudflare Container
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 90
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Runner diagnostics
+        run: |
+          node --version
+          npm --version
+          docker --version
+          df -h
 
       - name: Free disk safely before Docker build
         run: |
